@@ -14,25 +14,7 @@
 		name: '',
 		email: ''
 	});
-	onMount(async () => {
-		const stripe = await loadStripe(
-			'pk_test_51PPksKEzSPmspahfR4URxT1NOc35fu7H7Mi51g8KaSwbJnk0Kt1U8E9Y3DMuVp6ZtLj4f7xawoSG4uV1eUwKGFxg00y36EtUIy'
-		);
-		const u = await trpc(data).add_user.mutate({
-			email: 'ashtyn372@gmail.com',
-			phone: '8025574516',
-			full_name: 'Ashtyn Morel-Blake'
-		});
-		let fin_accs = await stripe?.collectFinancialConnectionsAccounts({
-			clientSecret: u.client_secret
-		});
-		fin_accs?.financialConnectionsSession?.accounts.forEach(async (acc) => {
-			console.log(await trpc(data).user_txn_sub.mutate({ account: acc.id }));
-			console.log(txns);
-		});
-		const txns = await trpc(data).user_txn_list.query({ account: 'fca_1QcCslEzSPmspahfjaN1Zuha' });
-		console.log(txns);
-	});
+	onMount(async () => {});
 </script>
 
 <div class="grid h-screen grid-rows-[50px_auto] items-center bg-backing-blue p-5 text-white">

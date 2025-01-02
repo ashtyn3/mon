@@ -8,6 +8,7 @@ export async function POST(e: RequestEvent) {
 
     let event;
     try {
+        console.log(sig)
         event = stripe.webhooks.constructEvent(await e.request.text(), sig, secret);
     } catch (err: any) {
         console.log(err)
