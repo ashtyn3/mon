@@ -5,8 +5,6 @@
 	import { Button } from '$lib/components/ui/button';
 	import { trpc } from '$lib/trpc/client';
 	import type { PageData } from './$types';
-	import { onMount } from 'svelte';
-	import { loadStripe } from '@stripe/stripe-js';
 
 	let { data }: { data: PageData } = $props();
 
@@ -14,7 +12,6 @@
 		name: '',
 		email: ''
 	});
-	onMount(async () => {});
 </script>
 
 <div class="grid h-screen grid-rows-[50px_auto] items-center bg-backing-blue p-5 text-white">
