@@ -40,6 +40,7 @@
 		"@trpc/client": "^10.45.2",
 		"@trpc/server": "^10.45.2",
 		"@types/validator": "^13.12.2",
+		"bignumber.js": "^9.1.2",
 		"stripe": "^17.5.0",
 		"tigerbeetle-node": "0.16.20",
 		"trpc-sveltekit": "^3.6.2",

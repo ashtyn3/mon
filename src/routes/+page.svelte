@@ -12,6 +12,7 @@
 		name: '',
 		email: ''
 	});
+	let waitlist_open = $state(false);
 </script>
 
 <div class="grid h-screen grid-rows-[50px_auto] items-center bg-backing-blue p-5 text-white">
@@ -21,8 +22,12 @@
 	<div class="row-span-1">
 		<h1 class="text-7xl font-black italic text-forefront-red max-sm:text-5xl">The Money Company</h1>
 		<p class="pt-3 text-2xl">Make finances chill.</p>
-		<Dialog.Root>
-			<Dialog.Trigger class="mt-5 rounded-lg border-2 p-2">Join waitlist</Dialog.Trigger>
+		<Dialog.Root open={waitlist_open}>
+			<Dialog.Trigger asChild>
+				<button class="mt-5 rounded-lg border-2 p-2" onclick={() => (waitlist_open = true)}>
+					Join waitlist
+				</button>
+			</Dialog.Trigger>
 			<Dialog.Content>
 				<Dialog.Header>
 					<Dialog.Title class="text-2xl font-black">Welcome!</Dialog.Title>
@@ -54,7 +59,7 @@
 								email: waitlist_req.email,
 								first_name: waitlist_req.name
 							});
-							console.log('done');
+							waitlist_open = false;
 						}}>Join</Button
 					>
 				</div>
