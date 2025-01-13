@@ -1,14 +1,15 @@
 import { stripe } from "$lib/stripe";
 import { json } from "@sveltejs/kit";
 import type { RequestEvent } from "./$types";
+import { SECRET_STRIPE_SIGNING_KEY } from "$env/static/private";
 
-let secret = "whsec_d9e14ce83cf5c7919be4ee19e28dc87aa9797b212965a07c61b70e8edb25f61a"
+let secret = SECRET_STRIPE_SIGNING_KEY
 export async function POST(e: RequestEvent) {
-    const sig = e.request.headers["stripe-signature"];
+    const sig = e.request.headers.get("stripe-signature");
+
 
     let event;
     try {
-        console.log(sig)
         event = stripe.webhooks.constructEvent(await e.request.text(), sig, secret);
     } catch (err: any) {
         console.log(err)
@@ -16,6 +17,13 @@ export async function POST(e: RequestEvent) {
     }
 
     if (event.type == "financial_connections.account.refreshed_transactions") {
-        console.log("done")
+        const transactions = await stripe.financialConnections.transactions.list({
+            account: event.data.object.id,
+        });
+
+        transactions.data.forEach((t) => {
+            t.id
+        })
+        return { status: 200 };
     }
 }

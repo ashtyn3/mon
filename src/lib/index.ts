@@ -18,9 +18,9 @@ export async function createAccount(ledger: number, code: number, flags: Account
     };
 
     const req = await fetch(PUBLIC_SERVER_URL + "/accounts/create", { method: "POST", body: JSON.stringify({ accounts: [acc] }) })
-    console.log(req)
     const res = req.json()
 
 
     return { account: acc, response: res }
 }
+

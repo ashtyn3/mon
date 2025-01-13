@@ -7820,9 +7820,6 @@
 </div>
 
 <style>
-	:global(body) {
-		padding: 30px;
-	}
 	[data-custom-class='body'],
 	[data-custom-class='body'] * {
 		background: transparent !important;

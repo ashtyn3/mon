@@ -5,6 +5,7 @@
 	import { Button } from '$lib/components/ui/button';
 	import { trpc } from '$lib/trpc/client';
 	import type { PageData } from './$types';
+	import { onMount } from 'svelte';
 
 	let { data }: { data: PageData } = $props();
 
@@ -13,6 +14,12 @@
 		email: ''
 	});
 	let waitlist_open = $state(false);
+	onMount(async () => {
+		const d = await trpc(data).users_w_pending.query();
+		d?.forEach(async (u) => {
+			console.log(u);
+		});
+	});
 </script>
 
 <div class="grid h-screen grid-rows-[50px_auto] items-center bg-backing-blue p-5 text-white">

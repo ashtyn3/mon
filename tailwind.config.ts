@@ -14,6 +14,9 @@ const config: Config = {
             }
         },
         extend: {
+            backgroundImage: {
+                "gradient": "url('/src/lib/assets/gradient.png')"
+            },
             colors: {
                 border: "hsl(var(--border) / <alpha-value>)",
                 input: "hsl(var(--input) / <alpha-value>)",
