@@ -46,6 +46,8 @@
 		"@trpc/client": "^10.45.2",
 		"@trpc/server": "^10.45.2",
 		"@types/validator": "^13.12.2",
+		"@vercel/flags": "^2.6.3",
+		"@vercel/toolbar": "^0.1.30",
 		"bignumber.js": "^9.1.2",
 		"stripe": "^17.5.0",
 		"svelte-loading-spinners": "^0.3.6",

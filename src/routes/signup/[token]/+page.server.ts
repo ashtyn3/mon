@@ -1,4 +1,4 @@
-import { error } from '@sveltejs/kit';
+import { error, redirect } from '@sveltejs/kit';
 import crypto from "crypto"
 import { stringFromBase64URL } from '@supabase/ssr';
 import type { PageServerLoad } from '../$types';
@@ -6,8 +6,12 @@ import { z } from 'zod';
 import { superValidate } from 'sveltekit-superforms';
 import { zod } from 'sveltekit-superforms/adapters';
 import { NonCompanySignUp } from './signInSchema';
+import { authentication } from '$lib/flags';
 
 export const load: PageServerLoad = async (l) => {
+    if (!await authentication()) {
+        redirect(301, '/')
+    }
     let data = stringFromBase64URL(l.params.token)
     let token_data = data.split(",")
     let token_id = token_data[0]
