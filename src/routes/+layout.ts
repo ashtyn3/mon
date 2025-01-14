@@ -1,6 +1,8 @@
 import { createBrowserClient, createServerClient, isBrowser } from '@supabase/ssr'
 import { PUBLIC_SUPABASE_ANON_KEY, PUBLIC_SUPABASE_URL } from '$env/static/public'
+import posthog from 'posthog-js'
 import type { LayoutLoad } from './$types'
+import { browser } from '$app/environment'
 
 export const load: LayoutLoad = async ({ data, depends, fetch }) => {
     /**
@@ -39,5 +41,14 @@ export const load: LayoutLoad = async ({ data, depends, fetch }) => {
         data: { user },
     } = await supabase.auth.getUser()
 
+    if (browser) {
+        posthog.init(
+            'phc_tCWm66cPPoQg43LAalgIAuSt8JYFGnfwL7EEHckdkvD',
+            {
+                api_host: 'https://us.i.posthog.com',
+                person_profiles: 'always', // or 'always' to create profiles for anonymous users as well
+            }
+        )
+    }
     return { session, supabase, user, url: { origin: "" } }
 }

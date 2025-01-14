@@ -2,6 +2,7 @@ import { add_waitlist } from './routes/add_waitlist';
 import { user_txn_sub, user_txn_list, add_company_w_owner, user_bank_sync_session_create, add_user } from './routes/user';
 import { key_init, init_company_token, users_w_pending } from "./routes/company"
 import { t } from './t';
+import { create_customer, create_customer_ticket } from './routes/feedback';
 
 
 export const router = t.router({
@@ -13,7 +14,9 @@ export const router = t.router({
     key_init,
     init_company_token,
     add_user,
-    users_w_pending
+    users_w_pending,
+    create_customer,
+    create_customer_ticket,
 });
 
 export const createCaller = t.createCallerFactory(router);

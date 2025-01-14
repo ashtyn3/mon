@@ -6,10 +6,10 @@ import { z } from 'zod';
 import { superValidate } from 'sveltekit-superforms';
 import { zod } from 'sveltekit-superforms/adapters';
 import { NonCompanySignUp } from './signInSchema';
-import { authentication } from '$lib/flags';
+import { ph_client } from '$lib/posthog';
 
 export const load: PageServerLoad = async (l) => {
-    if (!await authentication()) {
+    if (!await ph_client.isFeatureEnabled("onboarding", "anon")) {
         redirect(301, '/')
     }
     let data = stringFromBase64URL(l.params.token)

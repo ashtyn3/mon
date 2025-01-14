@@ -8,6 +8,7 @@ import { id } from "tigerbeetle-node";
 import { NonCompanySignUp } from "../../../routes/signup/[token]/signInSchema";
 import { fromPermission, PermissionsFrom } from "$lib/permissions";
 import crypto from "crypto"
+import { create_customer, feedback_create_customer } from "./feedback";
 
 
 
@@ -67,6 +68,9 @@ export const add_company_w_owner = t.procedure.input(formSchema).mutation(async 
         owner: company.data[0].id,
         user: auth.data.user?.id,
     })
+    await feedback_create_customer({ id: company.data[0].id, name: valid.company_name }).catch(() => {
+        return;
+    });
     return company.data[0];
 })
 

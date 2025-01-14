@@ -39,6 +39,7 @@
 	"dependencies": {
 		"@anatine/zod-mock": "^3.13.4",
 		"@faker-js/faker": "^9.3.0",
+		"@linear/sdk": "^37.0.0",
 		"@stripe/stripe-js": "^5.4.0",
 		"@supabase/ssr": "^0.5.2",
 		"@supabase/supabase-js": "^2.47.10",
@@ -49,6 +50,8 @@
 		"@vercel/flags": "^2.6.3",
 		"@vercel/toolbar": "^0.1.30",
 		"bignumber.js": "^9.1.2",
+		"posthog-js": "^1.205.1",
+		"posthog-node": "^4.3.2",
 		"stripe": "^17.5.0",
 		"svelte-loading-spinners": "^0.3.6",
 		"tigerbeetle-node": "0.16.20",

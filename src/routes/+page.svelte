@@ -6,6 +6,7 @@
 	import { trpc } from '$lib/trpc/client';
 	import type { PageData } from './$types';
 	import { onMount } from 'svelte';
+	import posthog from 'posthog-js';
 
 	let { data }: { data: PageData } = $props();
 
@@ -31,7 +32,13 @@
 		<p class="pt-3 text-2xl">Make finances chill.</p>
 		<Dialog.Root open={waitlist_open}>
 			<Dialog.Trigger asChild>
-				<button class="mt-5 rounded-lg border-2 p-2" onclick={() => (waitlist_open = true)}>
+				<button
+					class="mt-5 rounded-lg border-2 p-2"
+					onclick={() => {
+						posthog.capture('waitlist-click');
+						waitlist_open = true;
+					}}
+				>
 					Join waitlist
 				</button>
 			</Dialog.Trigger>
@@ -62,6 +69,7 @@
 						class="w-fit"
 						type="submit"
 						onclick={async () => {
+							posthog.capture('waitlist-join');
 							await trpc(data).add_waitlist.mutate({
 								email: waitlist_req.email,
 								first_name: waitlist_req.name
