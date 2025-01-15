@@ -185,10 +185,15 @@
 								</Form.Control>
 								<Form.FieldErrors />
 							</Form.Field>
+							<Button
+								onclick={async () => {
+									val = 'banking';
+								}}>Continue</Button
+							>
 						</Accordion.Content>
 					</Accordion.Item>
 					<Accordion.Item value="banking">
-						<Accordion.Trigger>Banking</Accordion.Trigger>
+						<Accordion.Trigger>Banking and Legal</Accordion.Trigger>
 						<Accordion.Content class="">
 							<div class="flex flex-col gap-3">
 								<div class="flex items-center gap-2">
