@@ -8,6 +8,7 @@ import { router } from '$lib/trpc/router';
 
 import { PUBLIC_SUPABASE_URL, PUBLIC_SUPABASE_ANON_KEY } from '$env/static/public'
 import { createTRPCHandle } from 'trpc-sveltekit'
+import type { Company } from './app';
 
 const supabase: Handle = async ({ event, resolve }) => {
     /**
@@ -53,7 +54,16 @@ const supabase: Handle = async ({ event, resolve }) => {
             return { session: null, user: null }
         }
 
-        return { session, user }
+        const id = await event.locals.supabase.from("profiles").select("company").eq("id", user?.id)
+        if (id.data && id.data.length) {
+            const company = await event.locals.supabase.from("companies").select("*").eq("id", id.data[0].company)
+            if (!company.data) {
+                return { session, supabase, user, url: { origin: "" }, company: null }
+            } else {
+                return { session, supabase, user, url: { origin: "" }, company: company.data[0] as Company }
+            }
+        }
+        return { session, supabase, user, company: null }
     }
 
     return resolve(event, {
@@ -68,9 +78,10 @@ const supabase: Handle = async ({ event, resolve }) => {
 }
 
 const authGuard: Handle = async ({ event, resolve }) => {
-    const { session, user } = await event.locals.safeGetSession()
+    const { session, user, company } = await event.locals.safeGetSession()
     event.locals.session = session
     event.locals.user = user
+    event.locals.company = company
 
     if (!event.locals.session && event.url.pathname.startsWith('/private')) {
         redirect(303, '/auth')

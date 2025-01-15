@@ -3,6 +3,7 @@ import { PUBLIC_SUPABASE_ANON_KEY, PUBLIC_SUPABASE_URL } from '$env/static/publi
 import posthog from 'posthog-js'
 import type { LayoutLoad } from './$types'
 import { browser } from '$app/environment'
+import type { Company } from '../app'
 
 export const load: LayoutLoad = async ({ data, depends, fetch }) => {
     /**
@@ -37,6 +38,7 @@ export const load: LayoutLoad = async ({ data, depends, fetch }) => {
         data: { session },
     } = await supabase.auth.getSession()
 
+
     const {
         data: { user },
     } = await supabase.auth.getUser()
@@ -50,5 +52,14 @@ export const load: LayoutLoad = async ({ data, depends, fetch }) => {
             }
         )
     }
-    return { session, supabase, user, url: { origin: "" } }
+    const id = await supabase.from("profiles").select("company").eq("id", user?.id)
+    if (id.data && id.data.length) {
+        const company = await supabase.from("companies").select("*").eq("id", id.data[0].company)
+        if (!company.data) {
+            return { session, supabase, user, url: { origin: "" }, company: null }
+        } else {
+            return { session, supabase, user, url: { origin: "" }, company: company.data[0] as Company }
+        }
+    }
+    return { session, supabase, user, url: { origin: "" }, company: null }
 }

@@ -1,5 +1,6 @@
 <script>
-	import Policy from './policy.svelte';
+	import Terms from './terms.svelte';
+
 	import logo from '$lib/assets/transparent_logo.png';
 </script>
 
@@ -10,6 +11,6 @@
 </div>
 <div class="flex justify-center font-sans">
 	<div class="w-[50%]">
-		<Policy />
+		<Terms />
 	</div>
 </div>

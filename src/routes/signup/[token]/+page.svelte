@@ -69,7 +69,8 @@
 				<div class="flex items-center gap-2">
 					<Checkbox bind:checked={privacy} name="priv" />
 					<Label for="priv"
-						>Agree to <a href="/privacy" class="underline">privacy policy</a> and terms of service.</Label
+						>Agree to <a href="/privacy" class="underline">privacy policy</a> and
+						<a href="/terms" class="underline">terms of service.</a></Label
 					>
 				</div>
 				{#if $message}
