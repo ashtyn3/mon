@@ -16,9 +16,11 @@
 		customer_id: '',
 		body: ''
 	});
-	if (data.user == null) {
-		goto('/');
-	}
+	onMount(() => {
+		if (data.user == null || data.company == null) {
+			goto('/');
+		}
+	});
 </script>
 
 <div class="grid h-screen grid-rows-[50px_auto] items-center p-5 text-black">
